@@ -1,10 +1,9 @@
 package views;
 
-import controller.MaterialManagement;
+import controller.Method;
 import model.CrispyFlour;
 import model.Material;
 import model.Meat;
-import controller.Method;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -35,10 +34,11 @@ public class Main {
         materials[8] = new Meat("0009", "Thịt bê", LocalDate.now(), 1900, 1800);
         materials[9] = new Meat("0010", "Thịt cừu", LocalDate.now(), 2200, 150);
 
-        MaterialManagement.mainMenu();
-        switch (MaterialManagement.choice()) {
+        Method.mainMenu();
+        switch (Method.choice()) {
             case 1:
-                System.out.println("The total cost of all 10 materialsl: " + Method.calTotalMoney(materials));
+                System.out.print("The total cost of all 10 materialsl: ");
+                Method.calTotalMoney(materials);
                 break;
             case 2:
                 System.out.println("Pre-sorted:");
@@ -48,16 +48,16 @@ public class Main {
                 Method.sortByCost(materials);
                 break;
             case 3:
-                MaterialManagement.addMaterial(materials);
+                Method.addMaterial(materials);
                 break;
             case 4:
                 System.out.println("Edit Material:");
                 System.out.print("Enter id of the material: ");
                 int index = scanner.nextInt();
-                MaterialManagement.editMaterial(materials, index);
+                Method.editMaterial(materials, index);
                 break;
             case 5:
-                Method.printMaterialList(MaterialManagement.removeMaterial(materials));
+                Method.printMaterialList(Method.removeMaterial(materials));
                 break;
             case 6:
                 System.exit(0);
