@@ -34,36 +34,8 @@ public class Main {
         materials[8] = new Meat("0009", "Thịt bê", LocalDate.now(), 1900, 1800);
         materials[9] = new Meat("0010", "Thịt cừu", LocalDate.now(), 2200, 150);
 
-        Method.mainMenu();
-        switch (Method.choice()) {
-            case 1:
-                System.out.print("The total cost of all 10 materialsl: ");
-                Method.calTotalMoney(materials);
-                break;
-            case 2:
-                System.out.println("Pre-sorted:");
-                Method.printMaterialList(materials);
+        Method.mainMenu(materials);
 
-                System.out.println("Sorted by cost:");
-                Method.sortByCost(materials);
-                break;
-            case 3:
-                Method.addMaterial(materials);
-                break;
-            case 4:
-                System.out.println("Edit Material:");
-                System.out.print("Enter id of the material: ");
-                int index = scanner.nextInt();
-                Method.editMaterial(materials, index);
-                break;
-            case 5:
-                Method.printMaterialList(Method.removeMaterial(materials));
-                break;
-            case 6:
-                System.exit(0);
-            default:
-                System.out.println("Not a valid choice");
-        }
 
     }
 }

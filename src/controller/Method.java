@@ -46,7 +46,7 @@ public class Method {
     }
 
 //    Management
-    public static void mainMenu() {
+    public static void mainMenu(Material[] material) {
         System.out.println("Manage");
         System.out.println("1. Calculate the total cost of all 10 materials");
         System.out.println("2. Sort by cost ascending");
@@ -54,29 +54,68 @@ public class Method {
         System.out.println("4. Edit Material");
         System.out.println("5. Remove Material");
         System.out.println("6. Exit");
-
+        switchCase(material);
     }
 
-    public static void continueOrExit() {
+    public static void continueOrExit(Material[] material) {
         System.out.println("Continue?");
         System.out.println("1. Yes");
         System.out.println("2. No");
+        System.out.print("Choice: ");
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
-                mainMenu();
+                mainMenu(material);
                 break;
             case 2:
                 System.exit(0);
             default:
                 System.out.println("Not a valid choice");
-                continueOrExit();
+                continueOrExit(material);
         }
     }
 
     public static int choice() {
-        System.out.print("Choose: ");
+        System.out.print("Choice: ");
         return scanner.nextInt();
+    }
+
+    public static void switchCase(Material[] material) {
+        switch (Method.choice()) {
+            case 1:
+                System.out.print("The total cost of all 10 materialsl: ");
+                Method.calTotalMoney(material);
+                continueOrExit(material);
+                break;
+            case 2:
+                System.out.println("Pre-sorted:");
+                Method.printMaterialList(material);
+
+                System.out.println("Sorted by cost:");
+                Method.sortByCost(material);
+                continueOrExit(material);
+                break;
+            case 3:
+                Method.addMaterial(material);
+                continueOrExit(material);
+                break;
+            case 4:
+                System.out.println("Edit Material:");
+                System.out.print("Enter id of the material: ");
+                int index = scanner.nextInt();
+                Method.editMaterial(material, index);
+                continueOrExit(material);
+                break;
+            case 5:
+                Method.printMaterialList(Method.removeMaterial(material));
+                continueOrExit(material);
+                break;
+            case 6:
+                System.exit(0);
+            default:
+                System.out.println("Not a valid choice");
+                mainMenu(material);
+        }
     }
 
     public static void addMaterial(Material[] materials) {
@@ -88,11 +127,11 @@ public class Method {
         switch (choice()) {
             case 1:
                 newMaterial = new CrispyFlour();
-                newMats(materials, newMaterial);
+                printMaterialList(newMats(materials, newMaterial));
                 break;
             case 2:
                 newMaterial = new Meat();
-                newMats(materials, newMaterial);
+                printMaterialList(newMats(materials, newMaterial));
                 break;
             case 3:
                 System.exit(0);
@@ -107,6 +146,7 @@ public class Method {
         newMaterial.setId(scanner.next());
         System.out.print("Enter name: ");
         newMaterial.setName(scanner.next());
+        scanner.nextLine();
         System.out.print("Nhập khoảng cách số ngày từ ngày sản xuất đến ngày hiện tại: ");
         int days = scanner.nextInt();
         newMaterial.setManufacturingDate(LocalDate.now().minusDays(days));
@@ -122,12 +162,11 @@ public class Method {
             meat.setWeight(Double.parseDouble(scanner.next()));
         }
 
-        Material[] newMaterials = new Material[materials.length - 1];
-        for (int i = 0; i < newMaterials.length; i++) {
+        Material[] newMaterials = new Material[materials.length + 1];
+        for (int i = 0; i < materials.length; i++) {
             newMaterials[i] = materials[i];
-            newMaterials[newMaterials.length - 1] = newMaterial;
+            newMaterials[materials.length] = newMaterial;
         }
-        Method.printMaterialList(newMaterials);
         return newMaterials;
     }
 
@@ -139,8 +178,10 @@ public class Method {
         materials[index].setId(scanner.next());
         System.out.print("Enter name: ");
         materials[index].setName(scanner.next());
+        scanner.nextLine();
         System.out.print("Nhập khoảng cách số ngày từ ngày sản xuất đến ngày hiện tại: ");
         int days = scanner.nextInt();
+        scanner.nextLine();
         materials[index].setManufacturingDate(LocalDate.now().minusDays(days));
         System.out.print("Enter cost: ");
         materials[index].setCost(Integer.parseInt(scanner.next()));
