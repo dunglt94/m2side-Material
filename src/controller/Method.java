@@ -147,9 +147,9 @@ public class Method {
         System.out.print("Enter name: ");
         newMaterial.setName(scanner.next());
         scanner.nextLine();
-        System.out.print("Nhập khoảng cách số ngày từ ngày sản xuất đến ngày hiện tại: ");
-        int days = scanner.nextInt();
-        newMaterial.setManufacturingDate(LocalDate.now().minusDays(days));
+        System.out.print("Enter manufacturing date: ");
+        String date = (scanner.next());
+        newMaterial.setManufacturingDate(LocalDate.parse(date));
         System.out.print("Enter cost: ");
         newMaterial.setCost(Integer.parseInt(scanner.next()));
         if (newMaterial instanceof CrispyFlour) {
@@ -179,10 +179,9 @@ public class Method {
         System.out.print("Enter name: ");
         materials[index].setName(scanner.next());
         scanner.nextLine();
-        System.out.print("Nhập khoảng cách số ngày từ ngày sản xuất đến ngày hiện tại: ");
-        int days = scanner.nextInt();
-        scanner.nextLine();
-        materials[index].setManufacturingDate(LocalDate.now().minusDays(days));
+        System.out.print("Enter manufacturing date (YYYY-MM-DD): ");
+        String date = (scanner.next());
+        materials[index].setManufacturingDate(LocalDate.parse(date));
         System.out.print("Enter cost: ");
         materials[index].setCost(Integer.parseInt(scanner.next()));
         if (materials[index] instanceof CrispyFlour) {

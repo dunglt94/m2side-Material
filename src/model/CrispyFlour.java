@@ -9,7 +9,7 @@ public class CrispyFlour extends Material implements Discount {
 
     public CrispyFlour(int quantity) {}
 
-    public CrispyFlour(String id, String name, LocalDate manufacturingDate, int cost, int quantity) {
+    public CrispyFlour(String id, String name, String manufacturingDate, int cost, int quantity) {
         super(id, name, manufacturingDate, cost);
         this.quantity = quantity;
     }
