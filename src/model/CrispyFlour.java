@@ -1,32 +1,30 @@
 package model;
 
-import discount.Discount;
-
 import java.time.LocalDate;
 
 public class CrispyFlour extends Material implements Discount {
-    private int quality;
+    private int quantity;
 
     public CrispyFlour() {}
 
-    public CrispyFlour(int quality) {}
+    public CrispyFlour(int quantity) {}
 
-    public CrispyFlour(String id, String name, LocalDate manufacturingDate, int cost, int quality) {
+    public CrispyFlour(String id, String name, LocalDate manufacturingDate, int cost, int quantity) {
         super(id, name, manufacturingDate, cost);
-        this.quality = quality;
+        this.quantity = quantity;
     }
 
-    public int getQuality() {
-        return quality;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setQuality(int quality) {
-        this.quality = quality;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override
     public double getAmount() {
-        return super.getCost() * this.quality;
+        return this.getRealMoney() * this.quantity;
     }
 
     @Override
@@ -36,7 +34,7 @@ public class CrispyFlour extends Material implements Discount {
 
     @Override
     public double getRealMoney() {
-        return (double) (this.getAmount() * 94) / 100;
+        return (double) (this.getCost() * 94) / 100;
     }
 
     @Override
@@ -45,8 +43,8 @@ public class CrispyFlour extends Material implements Discount {
                 ", name: " + super.getName() +
                 "\nmanufacturingDate: " + super.getManufacturingDate() +
                 "\nexpiration date: " + this.getExpiryDate() +
-                "\ncost: " + super.getCost() +
-                ", quality: " + this.quality +
-                ", total amount: " + this.getRealMoney();
+                "\ncost: " + this.getRealMoney() +
+                ", quantity: " + this.quantity +
+                ", total amount: " + this.getAmount();
     }
 }

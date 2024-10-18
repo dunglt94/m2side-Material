@@ -18,14 +18,24 @@ public class Method {
     public static double calTotalMoney(Material[] material) {
         double sum = 0;
         for (Material m : material) {
-            sum += m.getRealMoney();
+            sum += m.getAmount();
         }
         return sum;
     }
 
-    public static void sortByPrice(Material[] material) {
-        Comparator<Material> materialComparator = new MaterialComparator();
-        Arrays.sort(material, materialComparator);
+    public static void sortByCost(Material[] material) {
+        for (int i = 0; i < material.length; i++) {
+            int index = i;
+            for (int j = i + 1; j < material.length; j++) {
+                if (material[i].getCost() > material[j].getCost()) {
+                    index = j;
+                }
+            }
+            Material temp = material[index];
+            material[index] = material[i];
+            material[i] = temp;
+            System.out.println(material[i].toString());
+            System.out.println();
+        }
     }
-
 }

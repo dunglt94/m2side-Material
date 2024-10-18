@@ -1,7 +1,5 @@
 package model;
 
-import discount.Discount;
-
 import java.time.LocalDate;
 
 public class Meat extends Material implements Discount {
@@ -26,7 +24,7 @@ public class Meat extends Material implements Discount {
 
     @Override
     public double getAmount() {
-        return super.getCost() * this.weight;
+        return this.getRealMoney() * this.weight;
     }
 
     @Override
@@ -36,7 +34,7 @@ public class Meat extends Material implements Discount {
 
     @Override
     public double getRealMoney() {
-        return (double) (this.getAmount() * 97) / 100;
+        return (double) (super.getCost() * 97) / 100;
     }
 
     @Override
@@ -45,8 +43,8 @@ public class Meat extends Material implements Discount {
                 ", name: " + super.getName() +
                 "\nmanufacturingDate: " + super.getManufacturingDate() +
                 "\nexpiration date: " + this.getExpiryDate() +
-                "\ncost: " + super.getCost() +
+                "\ncost: " + this.getRealMoney() +
                 ", weight:" + this.weight +
-                ", total amount: " + this.getRealMoney();
+                ", total amount: " + this.getAmount();
     }
 }

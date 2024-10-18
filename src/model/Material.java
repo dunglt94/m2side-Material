@@ -1,7 +1,5 @@
 package model;
 
-import discount.Discount;
-
 import java.time.LocalDate;
 
 public abstract class Material implements Discount {
