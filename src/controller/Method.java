@@ -14,12 +14,12 @@ public class Method {
 //  Các  menu
     public static void mainMenu(Material[] material) {
         System.out.println("Manage");
-        System.out.println("1. Calculate the total cost of all 10 materials");
+        System.out.println("1. Calculate the total cost of all materials");
         System.out.println("2. Sort by cost ascending");
         System.out.println("3. Add Material");
         System.out.println("4. Edit Material");
         System.out.println("5. Remove Material");
-        System.out.println("6. Calculate the total discount of all 10 materials");
+        System.out.println("6. Calculate the total discount of all materials");
         System.out.println("7. Exit");
         switchCaseForMainMenu(material);
     }
@@ -43,7 +43,7 @@ public class Method {
     public static void switchCaseForMainMenu(Material[] material) {
         switch (choice()) {
             case 1:
-                System.out.print("The total cost of all 10 materialsl: ");
+                System.out.print("The total cost of all materials: ");
                 calculateTotalAmount(material);
                 break;
             case 2:
@@ -64,8 +64,12 @@ public class Method {
                 printMaterialList(material);
                 break;
             case 5:
+                Material[] newMaterials = new Material[material.length - 1];
                 System.out.print("Enter the id of the material want to delete: ");
-                removeMaterial(material);
+                removeMaterial(material, newMaterials);
+                material = newMaterials;
+                printMaterialList(material);
+
                 break;
             case 6:
 
@@ -192,18 +196,18 @@ public class Method {
         }
     }
 
-    public static void removeMaterial(Material[] material) {
+    public static void removeMaterial(Material[] material, Material[] newMaterial) {
         int id = scanner.nextInt();
         System.out.println("Remove Material:");
         System.out.println(material[id -1]);
         System.out.println();
         System.out.println("After removed:");
-        Material[] newMaterials = new Material[material.length - 1];
+
         for (int i = 0; i < material.length; i++) {
             if (i == id - 1) continue;
-            newMaterials[i] = material[i];
+            newMaterial[i] = material[i];
         }
-        printMaterialList(newMaterials);
+
     }
 
 
