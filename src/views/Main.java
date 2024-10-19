@@ -5,7 +5,6 @@ import model.CrispyFlour;
 import model.Material;
 import model.Meat;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
@@ -35,7 +34,5 @@ public class Main {
         materials[9] = new Meat("0010", "Thịt cừu", "2024-10-17", 2200, 150);
 
         Method.mainMenu(materials);
-
-
     }
 }
