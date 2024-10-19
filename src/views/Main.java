@@ -5,12 +5,8 @@ import model.CrispyFlour;
 import model.Material;
 import model.Meat;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
         Material[] materials = new Material[10];
         materials[0] = new CrispyFlour("0001",
                 "Bột chiên gà giòn Miwon",
