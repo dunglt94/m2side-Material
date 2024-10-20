@@ -41,9 +41,9 @@ public class Meat extends Material implements Discount {
     public String toString() {
         return "id: " + super.getId()  +
                 ", name: " + super.getName() +
-                "\nmanufacturingDate: " + super.getManufacturingDate() +
-                "\nexpiration date: " + this.getExpiryDate() +
-                "\ncost: " + this.getRealMoney() +
+                ", MFG: " + super.getManufacturingDate() +
+                ", EXP " + this.getExpiryDate() +
+                ", cost: " + this.getRealMoney() +
                 ", weight:" + this.weight +
                 ", total amount: " + this.getAmount();
     }

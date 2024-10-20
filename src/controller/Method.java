@@ -14,13 +14,14 @@ public class Method {
 //  Các  menu
     public static void mainMenu(Material[] materialList) {
         System.out.println("Manage");
-        System.out.println("1. Calculate the total cost of all materials");
-        System.out.println("2. Calculate the total discount of all materials");
-        System.out.println("3. Sort by cost ascending");
-        System.out.println("4. Add Material");
-        System.out.println("5. Edit Material");
-        System.out.println("6. Remove Material");
-        System.out.println("7. Exit");
+        System.out.println("1. Show material list");
+        System.out.println("2. Calculate the total cost of all materials");
+        System.out.println("3. Calculate the total discount of all materials");
+        System.out.println("4. Material list sorted by cost ascending");
+        System.out.println("5. Add Material");
+        System.out.println("6. Edit Material");
+        System.out.println("7. Remove Material");
+        System.out.println("8. Exit");
         switchCaseForMainMenu(materialList);
     }
 
@@ -43,38 +44,32 @@ public class Method {
     public static void switchCaseForMainMenu(Material[] materialList) {
         switch (choice()) {
             case 1:
+                printMaterialList(materialList);
+                break;
+            case 2:
                 System.out.print("The total cost of all materials: ");
                 calculateTotalAmount(materialList);
                 break;
-            case 2:
+            case 3:
                 System.out.print("Total discount amount: ");
                 calculateTotalDiscount(materialList);
                 break;
-            case 3:
-                System.out.println("Pre-sorted:");
-                printMaterialList(materialList);
-                System.out.println("Sorted by cost:");
+            case 4:
                 sortByCost(materialList);
                 break;
-            case 4:
-                System.out.println("Add Material:");
-                Material[] newMaterialList = new Material[materialList.length + 1];
-                chooseMaterialType(materialList, newMaterialList);
-                materialList = newMaterialList;
-                printMaterialList(materialList);
-                break;
             case 5:
-                System.out.println("Edit Material:");
-                editMaterial(materialList);
-                printMaterialList(materialList);
+                materialList = addMaterial(materialList);
+
                 break;
             case 6:
-                Material[] newMaterials = new Material[materialList.length - 1];
-                removeMaterial(materialList, newMaterials);
-                materialList = newMaterials;
-                printMaterialList(materialList);
+                System.out.println("Edit Material:");
+                editMaterial(materialList);
+
                 break;
             case 7:
+                materialList = removeMaterial(materialList);
+                break;
+            case 8:
                 System.exit(0);
             default:
                 System.out.println("Not a valid choice");
@@ -91,7 +86,6 @@ public class Method {
     public static void printMaterialList(Material[] materialList) {
         for (Material m : materialList) {
             System.out.println(m);
-            System.out.println();
         }
     }
 
@@ -133,12 +127,18 @@ public class Method {
             Material temp = materialList[index];
             materialList[index] = materialList[i];
             materialList[i] = temp;
-            System.out.println(materialList[i].toString());
-            System.out.println();
         }
+        System.out.println("Sorted by cost:");
+        printMaterialList(materialList);
     }
 
-    public static void chooseMaterialType(Material[] materialList, Material[] newMaterialList) {
+    public static Material[] addMaterial(Material[] materialList) {
+        Material[] newMaterialList = new Material[materialList.length + 1];
+        chooseMaterialType(materialList, newMaterialList);
+        return newMaterialList;
+    }
+
+    public static void chooseMaterialType(Material[] materialList, Material [] newMaterialList) {
         System.out.println("1. Crispy Flour");
         System.out.println("2. Meat");
         System.out.println("3. Back");
@@ -146,15 +146,14 @@ public class Method {
         switch (choice()) {
             case 1:
                 newMaterial = new CrispyFlour();
-                addMaterial(materialList, newMaterialList, newMaterial);
+                addNewMaterialToList(materialList, newMaterialList, newMaterial);
                 break;
             case 2:
                 newMaterial = new Meat();
-                addMaterial(materialList, newMaterialList, newMaterial);
+                addNewMaterialToList(materialList, newMaterialList, newMaterial);
                 break;
             case 3:
                 mainMenu(materialList);
-
                 break;
             default:
                 System.out.println("Not a valid choice");
@@ -162,9 +161,9 @@ public class Method {
         }
     }
 
-    public static void addMaterial(Material[] materialList,
-                                   Material[] newMaterialList,
-                                   Material newMaterial) {
+    public static void addNewMaterialToList(Material[] materialList,
+                                            Material[] newMaterialList,
+                                            Material newMaterial) {
         scanner.nextLine();
         inputMaterialInformation(newMaterial);
         for (int i = 0; i < materialList.length; i++) {
@@ -174,11 +173,12 @@ public class Method {
     }
 
     public static void editMaterial(Material[] materialList) {
+        scanner.nextLine();
         System.out.print("Enter id of the material want to edit: ");
-        int materialIndex = getMaterialIndex(materialList);
+        int materialIndex = -1;
+        materialIndex = getMaterialIndex(materialList, materialIndex);
         System.out.println("Editing Material:");
         System.out.println(materialList[materialIndex]);
-        scanner.nextLine();
         inputMaterialInformation(materialList[materialIndex]);
     }
 
@@ -203,31 +203,36 @@ public class Method {
         }
     }
 
-    public static void removeMaterial(Material[] materialList, Material[] newMaterialList) {
-        int materialIndex;
-        System.out.print("Enter the id of the material want to delete: ");
-        materialIndex = getMaterialIndex(materialList);
-        System.out.println("Remove Material:");
+    public static Material[] removeMaterial(Material[] materialList) {
+        scanner.nextLine();
+        int listSize = materialList.length;
+        int materialIndex = -1;
+        Material[] newMaterialsList = new Material[listSize - 1];
+        System.out.print("Enter the id of the material want to remove: ");
+        materialIndex = getMaterialIndex(materialList, materialIndex);
+        System.out.println("Removed Material:");
         System.out.println(materialList[materialIndex]);
-        System.out.println();
-        System.out.println("After removed:");
-
-        for (int i = 0; i < newMaterialList.length; i++) {
-            newMaterialList[i] = materialList[i];
-            if (i >= materialIndex) newMaterialList[i] = materialList[i + 1];
-            ;
+        for (int i = 0; i < newMaterialsList.length; i++) {
+            newMaterialsList[i] = materialList[i];
+            if (i >= materialIndex) newMaterialsList[i] = materialList[i + 1];
         }
+        return newMaterialsList;
     }
 
-    private static int getMaterialIndex(Material[] materialList) {
-        int materialIndex;
+    private static int getMaterialIndex(Material[] materialList, int materialIndex) {
         do {
-            int materialId = scanner.nextInt();
-            materialIndex = materialId - 1;
-            if (materialIndex < 0 || materialIndex >= materialList.length) {
-                System.out.print("Please enter an id between 1 and " + materialList.length + ": ");
+            String materialId = (scanner.nextLine());
+            for (int i = 0; i < materialList.length; i++) {
+                if (materialList[i].getId().equals(materialId)) {
+                    materialIndex = i;
+                    break;
+                }
             }
-        } while (materialIndex < 0 || materialIndex >= materialList.length);
+            if (materialIndex == -1) {
+                System.out.println("Material with id " + materialId + " not found.");
+                System.out.print("Please enter a valid id: ");
+            }
+        } while(materialIndex == -1);
         return materialIndex;
     }
 }

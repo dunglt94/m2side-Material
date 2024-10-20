@@ -62,7 +62,7 @@ public abstract class Material implements Discount {
     public String toString() {
         return "id: " + id +
                 ", name: " + name +
-                ", manufacturingDate: " + manufacturingDate +
+                ", MFG: " + manufacturingDate +
                 ", cost: " + cost;
     }
 }
